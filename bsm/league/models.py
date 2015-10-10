@@ -4,7 +4,7 @@ from people.models import PlayerSave
 
 class Country(models.Model):
    name = models.CharField(max_length=255, default='')
-   save = models.ForeignKey(PlayerSave)
+   save_name = models.ForeignKey(PlayerSave, null=True, blank=True, default=None)
    speedway_popularity = models.IntegerField(default=0)
    population = models.IntegerField(default=0)
    wealth = models.IntegerField(default=0)
@@ -14,7 +14,9 @@ class Country(models.Model):
 
 class City(models.Model):
    name = models.CharField(max_length=255, default='')
-   save = models.ForeignKey(PlayerSave)
+   country = models.ForeignKey(Country, null=True, blank=True)
+
+   save_name = models.ForeignKey(PlayerSave, null=True, blank=True)
    speedway_popularity = models.IntegerField(default=0)
    population = models.IntegerField(default=0)
    wealth = models.IntegerField(default=0)
@@ -23,7 +25,7 @@ class City(models.Model):
 
 class League(models.Model):
    name = models.CharField(max_length=255, default='')
-   save = models.ForeignKey(PlayerSave)
+   save_name = models.ForeignKey(PlayerSave, null=True, blank=True)
    country = models.ForeignKey(Country)
    ability = models.IntegerField(default=0)
    def __str__(self):
@@ -34,7 +36,7 @@ class LeagueClass(models.Model):
     league = models.ForeignKey(League)
     next_class = models.ForeignKey("self", default=None, null=True, blank=True, related_name="class_next_class")
     last_class = models.ForeignKey("self", default=None, null=True, blank=True, related_name="class_last_class")
-    save = models.ForeignKey(PlayerSave)
+    save_name = models.ForeignKey(PlayerSave, null=True, blank=True)
 
 
     ability = models.IntegerField(default=0)
@@ -49,7 +51,7 @@ class LeagueClass(models.Model):
 
 class Team(models.Model):
     name = models.CharField(max_length=255, default='')
-    save = models.ForeignKey(PlayerSave)
+    save_name = models.ForeignKey(PlayerSave, null=True, blank=True)
 
     league = models.ForeignKey(League)
     league_class = models.ForeignKey(LeagueClass)

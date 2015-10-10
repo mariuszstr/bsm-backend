@@ -22,12 +22,13 @@ class PlayerSave(models.Model):
 class Person(models.Model):
     first_name = models.CharField(max_length=255, default='')
     second_name = models.CharField(max_length=255, default='')
-    save = models.ForeignKey(PlayerSave)
+    save_name = models.ForeignKey(PlayerSave, null=True, blank=True)
     determination = models.IntegerField(default=0)
     ambition = models.IntegerField(default=0)
     professionalism = models.IntegerField(default=0)
     loyalty = models.IntegerField(default=0)
     reflex = models.IntegerField(default=0)
+    date_birth = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return self.first_name + " " + self.second_name
@@ -37,7 +38,7 @@ class Rider(models.Model):
     start = models.IntegerField(default=0)
     corner = models.IntegerField(default=0)
     pair_raid = models.IntegerField(default=0)
-    save = models.ForeignKey(PlayerSave)
+    save_name = models.ForeignKey(PlayerSave, null=True, blank=True)
 
     def __str__(self):
         return self.person.to_string()
@@ -53,7 +54,7 @@ class Coach(models.Model):
     manager_skill = models.IntegerField(default=0)
     physical_training = models.IntegerField(default=0)
     psychic_training = models.IntegerField(default=0)
-    save = models.ForeignKey(PlayerSave)
+    save_name = models.ForeignKey(PlayerSave, null=True, blank=True)
 
     def __str__(self):
         return self.person.to_string()
